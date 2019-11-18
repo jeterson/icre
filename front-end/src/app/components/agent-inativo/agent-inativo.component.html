@@ -1,0 +1,17 @@
+<div class="po-pt-md">
+  <div class="po-row">
+    <po-widget (p-primary-action)="goToConfig()" class="po-sm-12 po-mt-2" p-height="250"
+      p-primary-label="Configurar Agente" p-title="Status do Agente">
+
+      <div style="font-size: 4rem;" class="po-font-subtitle po-text-center">{{ status || 'INATIVO'}}
+      </div>
+      <div class="po-text-center po-mt-md-2">{{ status  === 'INATIVO'? description: 'O agente está executando' }}</div>
+      <div class="po-text-center">
+        <po-button *ngIf="status === 'INATIVO'" p-small (p-click)="downloadAgent()" p-label="Baixar Agent"></po-button>
+        <po-button *ngIf="status === 'INATIVO'" p-small (p-click)="abrirAgent()" class="po-m-1" p-label="Abrir Agent"></po-button>
+
+      </div>
+
+    </po-widget>
+  </div>
+</div>

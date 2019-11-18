@@ -1,0 +1,14 @@
+<po-page-default p-title="Parametros do Sistema" [p-breadcrumb]="breadcrumb">
+  <div class="po-row">
+    <po-table class="po-sm-12" [p-items]="items" [p-columns]="columns"></po-table>
+  </div>
+
+  <po-modal [p-primary-action]="confirm" [p-secondary-action]="close" p-title="Editar Parametro">
+    <div class="row">
+      <po-input class="po-sm-12" p-disabled [ngModel]="currentParam?.nome" name="nome" p-label="Nome"></po-input>
+      <po-textarea class="po-sm-12" p-disabled [ngModel]="currentParam?.descricao" name="descricao" p-label="Descrição"></po-textarea>
+      <po-input class="po-sm-12" (ngModelChange)="currentParam.valor = $event"
+        [ngModel]="currentParam?.valor" name="nome" p-label="Valor"></po-input>
+    </div>
+  </po-modal>
+</po-page-default>

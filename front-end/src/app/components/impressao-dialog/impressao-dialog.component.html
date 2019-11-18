@@ -1,0 +1,10 @@
+<div class="po-row">
+  <po-select (p-change)="changeValue($event)" p-clear class="po-sm-12" p-label="Modelo do documento"
+    [p-options]="models" [(ngModel)]="model" name="model"></po-select>
+  <po-divider></po-divider>
+  <po-select (p-change)="changeValue($event)" p-clear class="po-sm-12" p-label="Impressora" [p-options]="printers"
+    [(ngModel)]="printer" name="model"></po-select>
+  <div class="po-sm-12">
+    <po-button p-label="Atualizar Modelos" (p-click)="refreshModels()"></po-button>
+  </div>
+</div>

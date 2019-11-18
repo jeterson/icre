@@ -1,0 +1,48 @@
+<po-page-default p-title="Variáveis do Documento" [p-breadcrumb]="breadcrumb">
+  <div class="po-row">
+    <po-table p-striped="true" p-container p-hide-text-overflow class="po-sm-12" [p-items]="items" [p-columns]="columns"></po-table>
+  </div>
+
+  <po-modal p-size="xl " [p-primary-action]="confirm" [p-secondary-action]="close" p-title="Editar Variável">
+    <div class="row">
+
+      <po-input [p-disabled]="true" class="po-sm-12" [ngModel]="currentVar?.descricao" p-label="Descrição"></po-input>
+      <po-input [p-disabled]="true" class="po-sm-12" [ngModel]="currentVar?.propriedade" p-label="Propriedade">
+      </po-input>
+
+      <po-radio-group class="po-sm-12" [(ngModel)]="funcaoJs" name="funcaoJs" p-label="Função JavaScript" p-columns="4"
+        [p-options]="[{value: 'S', label: 'Sim'}, {value: 'N', label: 'Não'}]">
+      </po-radio-group>
+      <ng-container *ngIf="funcaoJs === 'S'">
+
+        <po-widget class="po-sm-12">
+          <po-info p-value="Exemplo da declaração da Função"></po-info>
+          <code>
+            function getValue(propValue, clienteObj) {{'{'}}
+            {{'}'}}
+
+          </code>
+        </po-widget>
+
+        <po-code-editor [ngModel]="currentVar?.valor" (ngModelChange)="currentVar.valor = $event" p-theme="vs-dark"
+          class="po-sm-12" p-height="150px" p-language="javascript" p-theme="string">
+        </po-code-editor>
+
+        <div class="po-sm-12 po-md-2 po-lg-2">
+          <po-button (p-click)="testJs()" p-label="Executar"></po-button>
+        </div>
+        <po-input p-placeholder="Parametro da Função" name="param" [(ngModel)]="param" class="po-sm-12"></po-input>
+        <div class="po-sm-12" style="border: 0.5px solid gray; padding: 5px; background-color: black; color: white;">
+          <code>
+          {{log}}
+        </code>
+        </div>
+
+      </ng-container>
+      <ng-container *ngIf="funcaoJs === 'N'">
+        <po-input class="po-sm-12" [ngModel]="currentVar?.valor" (ngModelChange)="currentVar.valor = $event"
+          p-label="Valor" p-help="Nome da chave que representa o valor a ser substituido"></po-input>
+      </ng-container>
+    </div>
+  </po-modal>
+</po-page-default>

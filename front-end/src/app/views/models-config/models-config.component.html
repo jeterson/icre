@@ -1,0 +1,17 @@
+<po-page-default [p-actions]="actions" [p-breadcrumb]="breadcrumb" p-title="Configurar Diretório dos Modelos">
+
+  <ng-container *ngIf="!agentAtivo">
+    <app-agent-inativo description="Ative o agente para configurar o diretório de Modelos"></app-agent-inativo>
+  </ng-container>
+
+  <ng-container *ngIf="agentAtivo">
+    <div class="po-row">
+      <po-input [(ngModel)]="dir" name="dir" p-label="Diretório dos Arquivos" class="po-sm-12"></po-input>
+      <div class="po-sm-12">
+        <po-button (p-click)="verificarArquivos()" [p-disabled]="!dir" p-label="Verificar Arquivos"></po-button>
+      </div>
+      <po-table class="po-sm-12" [p-columns]="columns" [p-items]="items"></po-table>
+    </div>
+  </ng-container>
+
+</po-page-default>

@@ -1,0 +1,27 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions" p-title="Configurações do Agente de Impressão">
+  <po-loading-overlay p-text="Tentando Comunicação" *ngIf="loading"></po-loading-overlay>
+  <div class="row">
+    <po-radio-group class="po-sm-12" p-columns="4" [(ngModel)]="selectionAgentType" name="selectionType"
+      p-label="Configurar como"
+      [p-options]="[{value: 1, label: 'Informar Agente'}, {value: 2, label: 'Selecionar Agente'}]"></po-radio-group>
+
+    <ng-container *ngIf="selectionAgentType === 1">
+      <po-input p-help="Endereço Ip onde o agente está sendo executado" p-label="Endereço do Agente" [(ngModel)]="agentAddress" name="address" class="po-sm-12"></po-input>
+
+    </ng-container>
+
+    <ng-container *ngIf="selectionAgentType === 2">
+      <po-select p-label="Endereço do Agente" [(ngModel)]="agentAddress" p-help="Endereço Ip onde o agente está sendo executado"
+        [p-options]="[{value: 'localhost', label: 'localhost'}, {value: '127.0.0.1', label: '127.0.0.1'}]"
+        name="address" class="po-sm-12"></po-select>
+
+    </ng-container>
+    <po-number [(ngModel)]="agentPort" name="port" p-label="Porta do Agente" class="po-sm-12"></po-number>
+
+    <po-divider></po-divider>
+    <div class="po-sm-12">
+      <po-button (p-click)="test()" p-label="Testar Comunicação com o Agente"></po-button>
+      <po-button (p-click)="downloadAgent()" class="po-ml-1" p-label="Baixar Agent"></po-button>
+    </div>
+  </div>
+</po-page-default>

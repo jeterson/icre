@@ -1,0 +1,13 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions" p-title="Configurar impressora Padrão">
+
+  <ng-container *ngIf="!agentAtivo">
+    <app-agent-inativo description="Ative o agente para configurar a impressora do aplicativo"></app-agent-inativo>
+  </ng-container>
+
+
+  <ng-container *ngIf="agentAtivo">
+    <po-select p-label="Impressoras Instaladas" [p-options]="printers" [(ngModel)]="defaultPrinter" name="printer">
+    </po-select>
+  </ng-container>
+
+</po-page-default>

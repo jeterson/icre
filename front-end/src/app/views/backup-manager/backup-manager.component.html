@@ -1,0 +1,90 @@
+<po-page-default p-title="Gerenciador de Backup do Banco de Dados">
+  <div class="row">
+
+    <po-widget p-primary-label="Executar Backup" (p-primary-action)="executeBackup()"
+      class="po-sm-12 po-md-6 po-lg-6 po-mt-2" p-title="Status Backup">
+      <div class="po-font-subtitle po-text-center">{{backupToday ? 'OK' : 'ATENÇÃO'}}</div>
+      <div class="po-text-center po-mt-3">
+        {{ backupToday ? 'Seu backup está em dia' : 'Backup diário ainda não executado' }}</div>
+    </po-widget>
+
+    <po-widget p-primary-label="Detalhes" (p-primary-action)="openModal('detailhesSucesso')"
+      class="po-sm-12 po-md-6 po-lg-6 po-mt-2" p-title="Ultimo Backup">
+      <div class="po-font-subtitle po-text-center">{{lastBackup?.status}}</div>
+      <div class="po-text-center po-mt-3">{{ dataLastBackupFormat }}</div>
+    </po-widget>
+
+    <po-widget class="po-sm-12 po-mt-1" p-title="Informações">
+      <table class="po-sm-6">
+        <tbody>
+          <tr>
+
+            <td *ngIf="!(dirBackup ?  dirBackup.ok : false)"
+              p-tooltip="Configure uma variável de ambiente ICRE_DIR_BACKUP com o caminho do backup">Diretório
+              Configurado:</td>
+            <td *ngIf="(dirBackup ?  dirBackup.ok : false)">Diretório
+              Configurado:</td>
+            <td> <strong>{{ dirBackup?.ok ? 'Sim' : 'Não' }} </strong></td>
+
+            <td>{{dirBackup?.ok ? 'Diretório:' : 'Diretório Padrão'}}:</td>
+            <td> <strong>{{ dirBackup?.dir }} </strong></td>
+          </tr>
+          <tr>
+            <td>Tipo de Backup: </td>
+
+            <td> <strong> {{ backupAutomatico ? 'Automático' : 'Manual' }} </strong> </td>
+            <td>Execução: </td>
+            <td *ngIf="backupAutomatico"> <strong>
+                {{ periodicidade === 'DIARIO' ? 'Todos os dias ' + getHorario() : 'Toda Semana dia ' + getDayOfWeekStr(diaSemana) + ' ' + getHorario() }}
+              </strong> </td>
+              <td *ngIf="!backupAutomatico"> <strong>
+                  Manual
+                </strong> </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+    </po-widget>
+  </div>
+
+  <div class="po-row">
+    <po-divider class="po-sm-12"></po-divider>
+    <po-info p-label="Backup Automático"
+      p-value="O backup será executado no horário programado. IMPORTANTE: O computador do servidor precisa estar ligado e executando o sistema para que o backup execute automaticamente"
+      class="po-sm-12"></po-info>
+
+    <po-switch p-label="Automático" p-label-on="Sim" p-label-off="Não" class="po-sm-12" [(ngModel)]="backupAutomatico"
+      name="automatico"></po-switch>
+
+    <ng-container *ngIf="backupAutomatico">
+      <po-select class="po-sm-4" p-label="Periodicidade" [(ngModel)]="periodicidade" name="periodicidade"
+        [p-options]="periodicidades"></po-select>
+
+      <po-select class="po-sm-3" *ngIf="periodicidade === 'SEMANAL'" [p-options]="recorrenciaSemanal"
+        [(ngModel)]="diaSemana" name="diaSemana" p-label="Dia da Semana"></po-select>
+      <po-input p-mask="99:99" p-label="Horário" [(ngModel)]="horario" name="horario" class="po-sm-2"></po-input>
+
+    </ng-container>
+    <div class="po-sm-12">
+      <po-button p-label="Salvar" (p-click)="salvarConfig()"></po-button>
+    </div>
+  </div>
+
+</po-page-default>
+
+<po-modal #detailsModalLastBackup p-title="Log do Backup">
+  <div class="po-row">
+    <div class="po-text-center">{{ lastBackup?.manual ? 'Backup Manual' : 'Backup Automatico' }}</div>
+
+    <div class="po-sm-12" style="border: 0.5px solid gray; background-color: black; color:white;">
+      <code>
+            {{ lastBackup?.log }}
+      </code>
+    </div>
+
+
+  </div>
+
+</po-modal>

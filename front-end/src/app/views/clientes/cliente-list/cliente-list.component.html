@@ -1,0 +1,49 @@
+<po-page-list p-striped p-title="Consultar Clientes Cadastrados" [p-filter]="filterSettings" [p-actions]="actions"
+  [p-breadcrumb]="breadcrumb">
+
+
+
+  <div class="po-row">
+    <po-input [(ngModel)]="searcForm.nome" name="nome" class="po-sm-12 po-md-5 po-lg-5" p-label="Nome"></po-input>
+    <po-combo [p-filter-service]="clienteService" [(ngModel)]="searcForm.uc" name="uc" p-label="Unidade Consumidora"
+      class="po-sm-12 po-md-3 po-lg-3"></po-combo>
+    <po-input [(ngModel)]="searcForm.rg" name="rg" class="po-sm-12 po-md-4 po-lg-4" p-label="RG"></po-input>
+    <div class="po-sm-12">
+      <po-button p-icon="po-icon-search" p-label="Pesquisar" (p-click)="filterAction()"></po-button>
+    </div>
+  </div>
+
+  <po-divider></po-divider>
+
+  <div>
+    <po-table p-checkbox p-single-select p-hide-select-all="true" p-sort="true" p-striped="true" [p-columns]="columns"
+      [p-items]="items">
+    </po-table>
+  </div>
+
+  <po-divider></po-divider>
+
+
+</po-page-list>
+
+<po-modal p-title="Filtros Adicionais" [p-primary-action]="advancedFilterPrimaryAction" #advancedFilterModal>
+  <div class="po-row">
+    <po-number class="po-sm-12 po-md-2 po-lg-2" [(ngModel)]="searcForm.id" name="id" p-label="Cód"></po-number>
+    <po-input class="po-sm-12 po-md-3 po-lg-3" [(ngModel)]="searcForm.cpf" name="cpf" p-label="CPF"
+      p-mask="999.999.999-99"></po-input>
+      <po-select [(ngModel)]="searcForm.uf" name="uf" [p-options]="ufs" class="po-sm-12 po-md-4 po-lg-4" p-label="Estado"></po-select>
+      <po-input class="po-sm-12 po-md-3 po-lg-3" [(ngModel)]="searcForm.cidade" name="cidade" p-label="Cidade"></po-input>
+  </div>
+</po-modal>
+
+
+<po-modal #printModal p-title="Dialogo de Impressão de Documentos" [p-primary-action]="printAction"
+  [p-secondary-action]="secondPrintAction">
+  <ng-container *ngIf="!agentAtivo">
+    <app-agent-inativo description="Ative o agente para imprimir documentos"></app-agent-inativo>
+  </ng-container>
+  <ng-container *ngIf="agentAtivo">
+    <app-impressao-dialog (data)="dataToPrinter = $event"></app-impressao-dialog>
+  </ng-container>
+  <po-loading-overlay p-screen-lock *ngIf="loading"></po-loading-overlay>
+</po-modal>

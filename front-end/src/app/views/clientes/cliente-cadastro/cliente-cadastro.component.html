@@ -1,0 +1,100 @@
+<po-page-edit p-title="Cadastro de Clientes" [p-breadcrumb]="breadcrumb">
+
+  <form [formGroup]="clienteForm">
+    <div class="po-row">
+      <po-input formControlName="id" p-disabled class="po-sm-12 po-md-2 po-lg-2" p-label="Código"
+        [p-help]="(prefixService.getPrefix() | async) + 'codigo'"></po-input>
+
+      <po-input formControlName="nome" class="po-sm-12 po-md-7 po-lg-7" p-label="Nome" [p-help]="(prefixService.getPrefix() | async) + 'nome'">
+      </po-input>
+
+      <po-input formControlName="unidadeConsumidora" class="po-sm-12 po-md-3 po-lg-3" p-label="Unidade Consumidora"
+        [p-help]="(prefixService.getPrefix() | async) + 'uc'"></po-input>
+
+      <po-input formControlName="rg" class="po-sm-12 po-md-2 po-lg-2" p-label="RG" [p-help]="(prefixService.getPrefix() | async) + 'rg'">
+      </po-input>
+
+      <po-input formControlName="orgaoExpedidor" class="po-sm-12 po-md-2 po-lg-2" p-label="Órgão Exp."
+        [p-help]="(prefixService.getPrefix() | async) + 'oe'"></po-input>
+
+      <po-input formControlName="cpf" p-mask="###.###.###-##" class="po-sm-12 po-md-3 po-lg-3" p-label="CPF" [p-help]="(prefixService.getPrefix() | async) + 'cpf'">
+      </po-input>
+
+      <po-input formControlName="telefone" class="po-sm-12 po-md-3 po-lg-3" p-label="Telefone"
+        [p-help]="(prefixService.getPrefix() | async) + 'fone'"></po-input>
+
+      <po-input formControlName="celular" class="po-sm-12 po-md-2 po-lg-2" p-label="Celular"
+        [p-help]="(prefixService.getPrefix() | async) + 'cel'"></po-input>
+
+      <po-radio-group formControlName="sexo" [p-help]="(prefixService.getPrefix() | async) + 'sexo'" p-columns="3" p-label="Sexo"
+        class="po-sm-6" [p-options]="sexoOptions"></po-radio-group>
+
+        <po-radio-group formControlName="estadoCivil" [p-help]="(prefixService.getPrefix() | async) + 'ec'" p-columns="4"
+        p-label="Estado Civil" class="po-sm-6" [p-options]="estadoCivilOptions"></po-radio-group>
+
+        <po-input formControlName="outroDocumento" class="po-sm-12 po-md-6 po-lg-6" p-label="Outro Doc."
+        [p-help]="(prefixService.getPrefix() | async) + 'outrodoc'"></po-input>
+
+        <po-decimal formControlName="remunerar" p-label="Custo da Rede" class="po-sm-12 po-md-6 po-lg-6"
+        [p-help]="(prefixService.getPrefix() | async) + 'custorede'"></po-decimal>
+
+    </div>
+
+    <po-tabs>
+      <po-tab p-active p-label="Informações Adicionais">
+        <div class="po-row">
+          <po-combo formControlName="banco" name="combo" p-label="Banco" p-filter-mode="contains" class="po-sm-12 po-md-4 po-lg-4"
+            [p-help]="(prefixService.getPrefix() | async) + 'banco'" [p-options]="bancos">
+          </po-combo>
+
+          <po-input formControlName="agencia" p-label="Agencia" class="po-sm-12 po-md-4 po-lg-4"
+            [p-help]="(prefixService.getPrefix() | async) + 'agencia'"></po-input>
+
+            <po-input formControlName="contaCorrente" p-label="Conta Bancária" class="po-sm-12 po-md-4 po-lg-4"
+            [p-help]="(prefixService.getPrefix() | async) + 'Cc'"></po-input>
+
+            <po-textarea formControlName="obs" class="po-sm-12" p-label="Obs" [p-help]="(prefixService.getPrefix() | async) + 'obs'">
+          </po-textarea>
+        </div>
+      </po-tab>
+      <po-tab p-label="Complemento">
+        <div class="po-row">
+
+          <po-checkbox-group formControlName="infoComplementar" [p-columns]="3" class="po-sm-12" p-label="Complementos"
+            [p-options]="infoComplementarService.getOptions()">
+          </po-checkbox-group>
+
+          <po-number formControlName="anoConclusao" p-label="Ano que a rede foi construida" class="po-sm-12 po-md-3 po-lg-3"></po-number>
+
+        </div>
+      </po-tab>
+      <po-tab p-label="Endereço">
+        <div class="po-row">
+          <po-input formControlName="endereco" class="po-sm-12 po-md-4 po-lg-6" p-label="Endereço"
+            [p-help]="(prefixService.getPrefix() | async) + 'end'"></po-input>
+
+            <po-input formControlName="bairro" class="po-sm-12 po-md-4 po-lg-4" p-label="Bairro"
+            [p-help]="(prefixService.getPrefix() | async) + 'bairro'"></po-input>
+
+            <po-number formControlName="numero" class="po-sm-12 po-md-4 po-lg-2" p-label="Número"
+            [p-help]="(prefixService.getPrefix() | async) + 'num'"></po-number>
+
+
+          <po-input formControlName="cep" class="po-sm-12 po-md-2 po-lg-2" p-label="Cep"
+            [p-help]="(prefixService.getPrefix() | async) + 'cep'"></po-input>
+
+          <po-input formControlName="cidade" class="po-sm-12 po-md-6 po-lg-6" p-label="Cidade"
+            [p-help]="(prefixService.getPrefix() | async) + 'cid'"></po-input>
+
+          <po-combo formControlName="estado" name="combo" p-label="Estado" p-filter-mode="contains" class="po-sm-12 po-md-4 po-lg-4"
+            [p-help]="(prefixService.getPrefix() | async) + 'est'" [p-options]="estados">
+          </po-combo>
+
+        </div>
+
+      </po-tab>
+    </po-tabs>
+
+  </form>
+
+</po-page-edit>

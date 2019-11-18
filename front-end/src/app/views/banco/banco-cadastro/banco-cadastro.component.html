@@ -1,0 +1,9 @@
+<po-page-edit p-title="Cadastro de Bancos" [p-breadcrumb]="breadcrumb" [p-disable-submit]="registerForm.invalid">
+    <form [formGroup]="registerForm">
+        <div class="po-row">
+          <po-input formControlName="id" p-label="Código" p-disabled class="po-sm-12 po-md-2 po-lg-2"></po-input>
+          <po-input p-label="Descrição" formControlName="descricao" class="po-sm-12 po-md-10 po-lg-10"></po-input>
+          </div>
+          </form>
+
+</po-page-edit>
